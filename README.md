@@ -1,7 +1,27 @@
 Minecraft-Util-Java
 ===================
 
-A java library that includes various minecraft utilities.
+A java library that includes various free minecraft utilities, most of which was coded without decompiling Minecraft or the Minecraft launcher.
+
+License: most of the code is GNU GPL v3, except for src/tk/rainbowfoxes/minecraft/launcher/BaseLauncher.java, which is released under the public domain.
+
+Features (and todo list)
+------------------------
+
+- [x] .minecraft directory constant
+- [x] Lastlogin file codec
+- [x] Session authentication client 
+- [ ] Applet loader (the core of a launcher)
+    - [x] Bare bones applet loader (BaseLauncher)
+    - [x] Forge compatibility (FennecLauncher)
+    - [ ] Make applet loader browser compatible
+    - [ ] Complete applet loader (FennecLauncher)
+- [ ] Skin/Cape Stuffs
+    - [ ] Skin downloader
+    - [ ] Skin uploader
+    - [ ] Graphics utilities for AWT
+- [ ] Game updater / downloader
+
 
 Usage Examples
 --------------
