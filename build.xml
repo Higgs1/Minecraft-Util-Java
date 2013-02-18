@@ -1,0 +1,29 @@
+<project default="main">
+
+	<target name="clean">
+		<delete dir="bin" />
+	</target>
+
+	<target name="compile">
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" />
+	</target>
+
+	<target name="jar">
+		<mkdir dir="dist" />
+		<jar destfile="dist/minecraft-util.jar" basedir="bin" excludes="**/skin/**">
+			<manifest>
+				<!-- <attribute name="Main-Class" value="FooBar"/> -->
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="run">
+		<java jar="dist/minecraft-util.jar" fork="true" />
+	</target>
+
+	<target name="clean-build" depends="clean,jar" />
+
+	<target name="main" depends="compile,jar" />
+
+</project>
