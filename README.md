@@ -3,7 +3,9 @@ Minecraft-Util-Java
 
 A java library that includes various free minecraft utilities, most of which was coded without decompiling Minecraft or the Minecraft launcher.
 
-License: most of the code is GNU GPL v3, except for src/tk/rainbowfoxes/minecraft/launcher/BaseLauncher.java, which is released under the public domain.
+[DOWNLOAD latest release here.](dist/minecraft-util.jar)
+
+License: most of the code is GNU GPL v3, except for [BaseLauncher](src/tk/rainbowfoxes/minecraft/launcher/BaseLauncher.java), which is released under the public domain.
 
 Features (and todo list)
 ------------------------
