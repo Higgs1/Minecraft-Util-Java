@@ -18,7 +18,7 @@ public final class Minecraft {
 	public static final String      DEFAULT_USERNAME   = "Player";
 	
 	public static final File        DEFAULT_WORKDIR    = getMinecraftWorkingDir();
-	public static final SavedLogin  DEFAULT_LASTLOG    = new StdEncryptedFile();
+	public static final SavedLogin  DEFAULT_LASTLOGIN  = new StdEncryptedFile();
 	
 	public static final URL         MOJANG_AUTHURL     = u("https://login.minecraft.net/");
 	public static final URL         MOJANG_SESSIONURL  = u("http://session.minecraft.net/game/");
