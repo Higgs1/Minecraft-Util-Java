@@ -26,7 +26,7 @@ Features (and todo list)
 Usage Examples
 --------------
 
-Read from a last login file
+Read from the lastlogin file
 ```java
   try {
       UserCredentials user = Minecraft.DEFAULT_LASTLOGIN.load();
@@ -35,6 +35,16 @@ Read from a last login file
   } catch (IOException e) {
       // error reading file
   }
+```
+
+Save to the lastlogin file
+```java
+  try {
+      Minecraft.DEFAULT_LASTLOGIN.save("username", "password");
+      // will attempt to create file if it doesn't exist
+  } catch (IOException e) {
+      // could not write to lastlogin file
+  };
 ```
 
 Log into minecraft
