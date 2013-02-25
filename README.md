@@ -10,14 +10,15 @@ License: most of the code is GNU GPL v3, except for [BaseLauncher](src/tk/rainbo
 Features (and todo list)
 ------------------------
 
-- [x] .minecraft directory constant
+- [x] .minecraft directory finder
 - [x] Lastlogin file codec
 - [x] Session authentication client 
 - [ ] Applet loader (the core of a launcher)
     - [x] Bare bones applet loader (BaseLauncher)
-    - [x] Forge compatibility (FennecLauncher)
+    - [x] Forge compatibility (KittenLauncher)
+    - [ ] Allow changing of minecraft root directory (KittenLauncher)
     - [ ] Make applet loader browser compatible
-    - [ ] Complete applet loader (FennecLauncher)
+    - [ ] Complete applet loader (KittenLauncher)
 - [ ] Skin/Cape Stuffs
     - [ ] Skin downloader
     - [ ] Skin uploader

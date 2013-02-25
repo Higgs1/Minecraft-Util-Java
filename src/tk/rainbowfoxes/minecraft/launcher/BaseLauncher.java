@@ -52,15 +52,14 @@ public class BaseLauncher extends DynamicAppletWrapper {
         return newclasspath;
     }
     
-    private Applet      applet;
-    private ClassLoader classloader;
+    private Applet        applet;
+    protected ClassLoader classloader;
     
     public BaseLauncher(final File[] jars) {
         this(files2urls(jars));
     }
     
     public BaseLauncher(final URL[] jars) {
-        this.setup();
         this.classloader = new URLClassLoader(jars) {
             @Override
             protected PermissionCollection getPermissions(
@@ -128,9 +127,4 @@ public class BaseLauncher extends DynamicAppletWrapper {
         this.applet.start();
         this.validate();
     }
-    
-    /**
-     * Override this method to do custom init tasks.
-     */
-    protected void setup() {}
 }
