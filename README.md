@@ -16,7 +16,7 @@ Features (and todo list)
 - [ ] Applet loader (the core of a launcher)
     - [x] Bare bones applet loader (BaseLauncher)
     - [x] Forge compatibility (KittenLauncher)
-    - [ ] Allow changing of minecraft root directory (KittenLauncher)
+    - [x] Allow changing of minecraft root directory (KittenLauncher)
     - [ ] Make applet loader browser compatible
     - [ ] Complete applet loader (KittenLauncher)
 - [ ] Skin/Cape Stuffs
