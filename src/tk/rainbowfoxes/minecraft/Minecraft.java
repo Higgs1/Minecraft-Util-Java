@@ -26,7 +26,7 @@ public final class Minecraft {
 	
 	public static final byte[]      MOJANG_CERTKEY     = getMinecraftCertKey();
 	public static final AuthService MOJANG_AUTHSERVICE = new SecureHTTPAuthService();
-	public static final SkinService MOJANG_SKINSERVICE = new URLSkinService();
+	//public static final SkinService MOJANG_SKINSERVICE = new URLSkinService();
 	
 	private static final byte[] getMinecraftCertKey() {
 		try {

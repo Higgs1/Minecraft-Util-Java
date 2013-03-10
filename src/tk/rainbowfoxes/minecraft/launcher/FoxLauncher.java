@@ -13,7 +13,7 @@ import tk.rainbowfoxes.minecraft.Minecraft;
 import tk.rainbowfoxes.minecraft.auth13.AuthSession;
 
 @SuppressWarnings("serial")
-public class KittenLauncher extends BaseLauncher implements Launcher {
+public class FoxLauncher extends BaseLauncher implements Launcher {
     
     private static final File[] getJars(final File jarpath) {
         return new File[] { new File(jarpath, "jinput.jar"),
@@ -22,49 +22,51 @@ public class KittenLauncher extends BaseLauncher implements Launcher {
                 new File(jarpath, "minecraft.jar") };
     }
     
-    public KittenLauncher() {
+    public FoxLauncher() {
         this(getJars(new File(Minecraft.DEFAULT_WORKDIR, "bin")));
     }
     
-    public KittenLauncher(final File root) {
+    public FoxLauncher(final File root) {
         this(getJars(new File(root, "bin")));
         this.setRootDir(root);
     }
     
-    public KittenLauncher(final File[] jars, final File root) {
+    public FoxLauncher(final File[] jars, final File root) {
         super(jars);
-        this.setup();
         this.setRootDir(root);
+        this.setup();
     }
     
-    public KittenLauncher(final URL[] jars, final File root) {
+    public FoxLauncher(final URL[] jars, final File root) {
         super(jars);
-        this.setup();
         this.setRootDir(root);
+        this.setup();
     }
     
-    public KittenLauncher(final File[] jars) {
+    public FoxLauncher(final File[] jars) {
         super(jars);
         this.setup();
     }
     
-    public KittenLauncher(final URL[] jars) {
+    public FoxLauncher(final URL[] jars) {
         super(jars);
         this.setup();
     }
     
-    public KittenLauncher launch() {
+    public FoxLauncher launch() {
         System.setProperty("minecraft.applet.WrapperClass", this.getClass()
             .getCanonicalName());
         super.init();
         return this;
     }
     
-    public KittenLauncher launch(final Container container) {
+    public FoxLauncher launch(final Container container) {
         // TODO make a static method to set library paths
         // TODO try to load native libraries if needed
+        container.removeAll();
         container.setLayout(new BorderLayout(0, 0));
         container.add(this);
+        container.validate();
         return this.launch();
     }
     
@@ -74,26 +76,26 @@ public class KittenLauncher extends BaseLauncher implements Launcher {
         super.replace(applet);
     }
     
-    public KittenLauncher setSession(final AuthSession session) {
+    public FoxLauncher setSession(final AuthSession session) {
         return this.setSession(session.getUserName(), session.getSessionID());
     }
     
-    public KittenLauncher setSession(final String username) {
+    public FoxLauncher setSession(final String username) {
         return this.setSession(username, "");
     }
     
-    public KittenLauncher setSession(final String username,
+    public FoxLauncher setSession(final String username,
         final String sessionid) {
         this.setParameter("username", username);
         this.setParameter("sessionid", sessionid);
         return this;
     }
     
-    public KittenLauncher setStandAlone() {
+    public FoxLauncher setStandAlone() {
         return this.setStandAlone(true);
     }
     
-    public KittenLauncher setStandAlone(final boolean mode) {
+    public FoxLauncher setStandAlone(final boolean mode) {
         this.setParameter("stand-alone", mode);
         return this;
     }
@@ -103,7 +105,7 @@ public class KittenLauncher extends BaseLauncher implements Launcher {
         this.setStandAlone();
     }
     
-    public KittenLauncher setRootDir(final File root) {
+    public FoxLauncher setRootDir(final File root) {
         try {
             for (final Field f : this.classloader.loadClass(
                 "net.minecraft.client.Minecraft").getDeclaredFields())
