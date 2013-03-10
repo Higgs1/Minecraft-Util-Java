@@ -31,25 +31,25 @@ public class FoxLauncher extends BaseLauncher implements Launcher {
         this.setRootDir(root);
     }
     
+    public FoxLauncher(final File[] jars) {
+        super(jars);
+        this.setup();
+    }
+    
     public FoxLauncher(final File[] jars, final File root) {
         super(jars);
         this.setRootDir(root);
         this.setup();
     }
     
+    public FoxLauncher(final URL[] jars) {
+        super(jars);
+        this.setup();
+    }
+    
     public FoxLauncher(final URL[] jars, final File root) {
         super(jars);
         this.setRootDir(root);
-        this.setup();
-    }
-    
-    public FoxLauncher(final File[] jars) {
-        super(jars);
-        this.setup();
-    }
-    
-    public FoxLauncher(final URL[] jars) {
-        super(jars);
         this.setup();
     }
     
@@ -76,6 +76,40 @@ public class FoxLauncher extends BaseLauncher implements Launcher {
         super.replace(applet);
     }
     
+    public FoxLauncher setDemo() {
+        return this.setDemo(true);
+    }
+    
+    public FoxLauncher setDemo(final boolean mode) {
+        this.setParameter("demo", mode);
+        return this;
+    }
+    
+    public FoxLauncher setFullScreen() {
+        return this.setFullscreen(true);
+    }
+    
+    public FoxLauncher setFullscreen(final boolean mode) {
+        this.setParameter("fullscreen", mode);
+        return this;
+    }
+    
+    public FoxLauncher setRootDir(final File root) {
+        try {
+            for (final Field f : this.classloader.loadClass(
+                "net.minecraft.client.Minecraft").getDeclaredFields())
+                if (Modifier.isPrivate(f.getModifiers())
+                    && Modifier.isStatic(f.getModifiers())
+                    && f.getType() == File.class) {
+                    AccessibleObject.setAccessible(new Field[] { f }, true);
+                    f.set(null, root);
+                    break;
+                }
+        } catch (ClassNotFoundException | IllegalArgumentException
+            | IllegalAccessException | SecurityException e) {}
+        return this;
+    }
+    
     public FoxLauncher setSession(final AuthSession session) {
         return this.setSession(session.getUserName(), session.getSessionID());
     }
@@ -84,8 +118,8 @@ public class FoxLauncher extends BaseLauncher implements Launcher {
         return this.setSession(username, "");
     }
     
-    public FoxLauncher setSession(final String username,
-        final String sessionid) {
+    public FoxLauncher
+        setSession(final String username, final String sessionid) {
         this.setParameter("username", username);
         this.setParameter("sessionid", sessionid);
         return this;
@@ -103,21 +137,5 @@ public class FoxLauncher extends BaseLauncher implements Launcher {
     protected void setup() {
         this.setSession(Minecraft.DEFAULT_USERNAME);
         this.setStandAlone();
-    }
-    
-    public FoxLauncher setRootDir(final File root) {
-        try {
-            for (final Field f : this.classloader.loadClass(
-                "net.minecraft.client.Minecraft").getDeclaredFields())
-                if (Modifier.isPrivate(f.getModifiers())
-                    && Modifier.isStatic(f.getModifiers())
-                    && f.getType() == File.class) {
-                    AccessibleObject.setAccessible(new Field[] { f }, true);
-                    f.set(null, root);
-                    break;
-                }
-        } catch (ClassNotFoundException | IllegalArgumentException
-            | IllegalAccessException | SecurityException e) {}
-        return this;
     }
 }
