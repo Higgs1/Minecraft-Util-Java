@@ -1,93 +1,62 @@
 package tk.rainbowfoxes.minecraft;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import javax.xml.bind.DatatypeConverter;
 
 import tk.rainbowfoxes.minecraft.auth13.AuthService;
 import tk.rainbowfoxes.minecraft.auth13.SecureHTTPAuthService;
 import tk.rainbowfoxes.minecraft.keyring.SavedLogin;
 import tk.rainbowfoxes.minecraft.keyring.StdEncryptedFile;
-import tk.rainbowfoxes.minecraft.skin.SkinService;
-import tk.rainbowfoxes.minecraft.skin.URLSkinService;
 
 public final class Minecraft {
-	
-	public static final int         DEFAULT_GAMEPORT   = 25565;
-	public static final String      DEFAULT_USERNAME   = "Player";
-	
-	public static final File        DEFAULT_WORKDIR    = getMinecraftWorkingDir();
-	public static final SavedLogin  DEFAULT_LASTLOGIN  = new StdEncryptedFile();
-	
-	public static final URL         MOJANG_AUTHURL     = u("https://login.minecraft.net/");
-	public static final URL         MOJANG_SESSIONURL  = u("http://session.minecraft.net/game/");
-	public static final URL         MOJANG_SKINURL     = u("https://skins.minecraft.net/");
-	
-	public static final byte[]      MOJANG_CERTKEY     = getMinecraftCertKey();
-	public static final AuthService MOJANG_AUTHSERVICE = new SecureHTTPAuthService();
-	//public static final SkinService MOJANG_SKINSERVICE = new URLSkinService();
-	
-	private static final byte[] getMinecraftCertKey() {
-		try {
-			return new String(new char[] { 0x30, 0x82, 0x01, 0x22, 0x30, 0x0d,
-			    0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
-			    0x01, 0x05, 0x00, 0x03, 0x82, 0x01, 0x0f, 0x00, 0x30, 0x82,
-			    0x01, 0x0a, 0x02, 0x82, 0x01, 0x01, 0x00, 0xc6, 0xf3, 0xde,
-			    0xfd, 0xef, 0xa9, 0x62, 0x9c, 0xe0, 0x51, 0x28, 0x9b, 0xfb,
-			    0x46, 0xbc, 0xf4, 0x1a, 0x03, 0x0d, 0x6f, 0x69, 0xf1, 0x98,
-			    0x2a, 0xa6, 0x35, 0xb9, 0x62, 0xd6, 0x36, 0x6b, 0x64, 0x53,
-			    0x87, 0x93, 0xd6, 0xa9, 0xd3, 0x46, 0xd7, 0x93, 0x4f, 0x1d,
-			    0x8e, 0x50, 0x50, 0x7d, 0x51, 0x80, 0xd1, 0x29, 0x8f, 0x83,
-			    0x37, 0xb6, 0x67, 0xfd, 0xde, 0xa3, 0xdf, 0x02, 0xda, 0x52,
-			    0xba, 0x1c, 0x3a, 0x3e, 0x6f, 0xe4, 0xb6, 0xc8, 0x55, 0x75,
-			    0x91, 0xf8, 0x6b, 0x2a, 0x51, 0x5a, 0xad, 0xf6, 0x26, 0x9b,
-			    0xff, 0xcf, 0x67, 0x15, 0xa0, 0xb9, 0x5a, 0xb8, 0xca, 0xaf,
-			    0x8f, 0xef, 0x9a, 0x15, 0x45, 0x9f, 0x87, 0xd0, 0x82, 0x89,
-			    0x55, 0x45, 0x91, 0x7e, 0x90, 0x03, 0x84, 0x45, 0x6b, 0xdf,
-			    0xeb, 0xa4, 0x95, 0x71, 0x74, 0xbd, 0x0f, 0x8b, 0xf7, 0xa8,
-			    0xc4, 0xfa, 0xd5, 0x7d, 0x6f, 0xff, 0x01, 0xc0, 0x4a, 0x64,
-			    0xd2, 0x73, 0x02, 0xf1, 0x4f, 0x72, 0x87, 0x48, 0x80, 0xa2,
-			    0x0c, 0x9c, 0x3c, 0xd5, 0xad, 0xbe, 0xfb, 0xf0, 0x38, 0x34,
-			    0xaf, 0x25, 0x10, 0xef, 0x96, 0xaf, 0x8c, 0x3d, 0xfa, 0x48,
-			    0x54, 0x5f, 0xe4, 0x11, 0x43, 0xa2, 0x74, 0xe9, 0xc4, 0x28,
-			    0xa9, 0x06, 0x3d, 0xcc, 0xbd, 0xc0, 0xbe, 0x48, 0xb4, 0x22,
-			    0xd6, 0xd2, 0x34, 0xee, 0x2f, 0x07, 0x76, 0xe7, 0x33, 0x9f,
-			    0x0d, 0xe5, 0x9e, 0x34, 0x8a, 0xc6, 0xec, 0x2b, 0x75, 0x15,
-			    0x3a, 0x2f, 0xa8, 0xa6, 0x9a, 0x77, 0x68, 0x17, 0xf2, 0x90,
-			    0x65, 0x5b, 0xef, 0x52, 0x33, 0xaa, 0x4b, 0x05, 0xf3, 0x08,
-			    0x80, 0x0e, 0xdf, 0x0d, 0xfb, 0x8b, 0x67, 0x0e, 0x17, 0x54,
-			    0x25, 0x9f, 0x75, 0xa9, 0xf8, 0x66, 0x28, 0xeb, 0x70, 0x31,
-			    0x49, 0xac, 0xe3, 0x9d, 0xb1, 0x10, 0xc8, 0xfd, 0xfd, 0x8d,
-			    0x23, 0x6c, 0xef, 0x02, 0x03, 0x01, 0x00, 0x01 })
-			    .getBytes("ISO-8859-1");
-		} catch (final UnsupportedEncodingException e) {}
-		return null;
-	}
-	
-	private static final File getMinecraftWorkingDir() {
-		final String home = System.getProperty("user.home", ".");
-		final String os = System.getProperty("os.name").toLowerCase();
-		if (os.contains("solaris") || os.contains("sunos")
-		    || os.contains("linux") || os.contains("unix"))
-			return new File(home, ".minecraft/");
-		else if (os.contains("win")) {
-			final String appdata = System.getenv("APPDATA");
-			return new File(appdata != null ? appdata : home, ".minecraft/");
-		} else if (os.contains("mac"))
-			return new File(home, "Library/Application Support/minecraft/");
-		return new File(home, "minecraft/");
-	}
-	
-	private static final URL u(final String url) {
-		try {
-			return new URL(url);
-		} catch (final MalformedURLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	private Minecraft() {}
-	
+    
+    public static final int         DEFAULT_GAMEPORT   = 25565;
+    public static final String      DEFAULT_USERNAME   = "Player";
+    
+    public static final File        DEFAULT_WORKDIR    = getMinecraftWorkingDir();
+    public static final SavedLogin  DEFAULT_LASTLOGIN  = new StdEncryptedFile();
+    
+    public static final URL         MOJANG_AUTHURL     = u("https://login.minecraft.net/");
+    public static final URL         MOJANG_SESSIONURL  = u("http://session.minecraft.net/game/");
+    public static final URL         MOJANG_SKINURL     = u("https://skins.minecraft.net/");
+    
+    public static final byte[]      MOJANG_CERTKEY     = getMinecraftCertKey();
+    public static final AuthService MOJANG_AUTHSERVICE = new SecureHTTPAuthService();
+    
+    private static final byte[] getMinecraftCertKey() {
+        return DatatypeConverter.parseHexBinary("30820122300d06092a864886f70d0"
+            + "1010105000382010f003082010a0282010100c6f3defdefa9629ce051289bfb"
+            + "46bcf41a030d6f69f1982aa635b962d6366b64538793d6a9d346d7934f1d8e5"
+            + "0507d5180d1298f8337b667fddea3df02da52ba1c3a3e6fe4b6c8557591f86b"
+            + "2a515aadf6269bffcf6715a0b95ab8caaf8fef9a15459f87d082895545917e9"
+            + "00384456bdfeba4957174bd0f8bf7a8c4fad57d6fff01c04a64d27302f14f72"
+            + "874880a20c9c3cd5adbefbf03834af2510ef96af8c3dfa48545fe41143a274e"
+            + "9c428a9063dccbdc0be48b422d6d234ee2f0776e7339f0de59e348ac6ec2b75"
+            + "153a2fa8a69a776817f290655bef5233aa4b05f308800edf0dfb8b670e17542"
+            + "59f75a9f86628eb703149ace39db110c8fdfd8d236cef0203010001");
+    }
+    
+    private static final File getMinecraftWorkingDir() {
+        String str = (str = System.getenv("APPDATA")) == null ? System
+            .getProperty("user.home", ".") : str;
+        return new File(str, ((str = System.getProperty("os.name")
+            .toLowerCase()).matches(".*(win|s(olari|uno)s|linux|unix).*") ? "."
+            : str.contains("mac") ? "Library/Application Support/" : "")
+            + "minecraft");
+    }
+    
+    private static final URL u(final String url) {
+        try {
+            return new URL(url);
+        } catch (final MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    private Minecraft() {}
+    
 }

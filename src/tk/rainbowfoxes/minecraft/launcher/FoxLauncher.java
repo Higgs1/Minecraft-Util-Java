@@ -106,7 +106,9 @@ public class FoxLauncher extends BaseLauncher implements Launcher {
                     break;
                 }
         } catch (ClassNotFoundException | IllegalArgumentException
-            | IllegalAccessException | SecurityException e) {}
+            | IllegalAccessException | SecurityException e) {
+            return null;
+        }
         return this;
     }
     

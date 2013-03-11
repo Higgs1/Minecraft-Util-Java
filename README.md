@@ -15,10 +15,10 @@ Features (and todo list)
 - [x] Session authentication client 
 - [ ] Applet loader (the core of a launcher)
     - [x] Bare bones applet loader (BaseLauncher)
-    - [x] Forge compatibility (KittenLauncher)
-    - [x] Allow changing of minecraft root directory (KittenLauncher)
+    - [x] Forge compatibility (FoxLauncher)
+    - [x] Allow changing of minecraft root directory (FoxLauncher)
     - [ ] Make applet loader browser compatible
-    - [ ] Complete applet loader (KittenLauncher)
+    - [ ] Complete applet loader (FoxLauncher)
 - [ ] Skin/Cape Stuffs
     - [ ] Skin downloader
     - [ ] Skin uploader
